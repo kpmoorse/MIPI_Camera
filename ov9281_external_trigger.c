@@ -85,6 +85,17 @@ int main(int argc, char **argv) {
     
     usleep(1000 * 1000 * 2);
     write_regs(camera_instance, regs, regs_size);
+
+    LOG("Setting the resolution...");
+    res = arducam_set_resolution(camera_instance, &width, &height);
+    if (res) {
+        LOG("set resolution status = %d", res);
+        return -1;
+    } else {
+        LOG("Current resolution is %dx%d", width, height);
+        LOG("Notice:You can use the list_format sample program to see the resolution and control supported by the camera.");
+    }
+    
     usleep(1000 * 1000 * 100);
 
     LOG("Stop preview...");

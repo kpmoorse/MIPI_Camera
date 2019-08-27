@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
     PREVIEW_PARAMS preview_params = {
         .fullscreen = 0,             // 0 is use previewRect, non-zero to use full screen
         .opacity = 255,              // Opacity of window - 0 = transparent, 255 = opaque
-        .window = {0, 0, 1280, 720}, // Destination rectangle for the preview window.
+        .window = {0, 0, 1280, 800}, // Destination rectangle for the preview window.
     };
     res = arducam_start_preview(camera_instance, &preview_params);
     if (res) {
