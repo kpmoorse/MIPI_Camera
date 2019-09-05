@@ -19,9 +19,8 @@ struct reg regs[] = {
     {0x303F, 0x01},
     {0x302C, 0x00},
     {0x302F, 0x7F},
-    {0x3823, 0x00},
+    {0x3823, 0x30},
     {0x0100, 0x00},
-    {0X3501, 0X05},
 };
 
 static const int regs_size = sizeof(regs) / sizeof(regs[0]);
@@ -84,14 +83,19 @@ int main(int argc, char **argv) {
         return -1;
     }
     
-    // usleep(1000 * 1000 * 2);
+    usleep(1000 * 1000 * 2);
     write_regs(camera_instance, regs, regs_size);
 
-    arducam_set_control(camera_instance, V4L2_CID_EXPOSURE, 500);
-    int exposure = 0;
-    arducam_get_control(camera_instance, V4L2_CID_EXPOSURE, &exposure);
-    printf("Current exposure is %d\n", exposure);
-
+    LOG("Setting the resolution...");
+    res = arducam_set_resolution(camera_instance, &width, &height);
+    if (res) {
+        LOG("set resolution status = %d", res);
+        return -1;
+    } else {
+        LOG("Current resolution is %dx%d", width, height);
+        LOG("Notice:You can use the list_format sample program to see the resolution and control supported by the camera.");
+    }
+    
     usleep(1000 * 1000 * 100);
 
     LOG("Stop preview...");
