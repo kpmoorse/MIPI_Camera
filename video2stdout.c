@@ -141,10 +141,17 @@ int main(int argc, char **argv) {
     // usleep(1000 * 1000 * 2);
     write_regs(camera_instance, regs, regs_size);
 
+    // Set exposure to constant value
     arducam_set_control(camera_instance, V4L2_CID_EXPOSURE, 500);
     int exposure = 0;
     arducam_get_control(camera_instance, V4L2_CID_EXPOSURE, &exposure);
-    printf("Current exposure is %d\n", exposure);
+    LOG("Current exposure is %d", exposure);
+
+    // Set white balance to constant value
+    arducam_set_control(camera_instance, V4L2_CID_GAIN, 1);
+    int gain = 0;
+    arducam_get_control(camera_instance, V4L2_CID_GAIN, &gain);
+    LOG("Current gain is %d", gain);
 
     // usleep(1000 * 1000 * 100);
 
